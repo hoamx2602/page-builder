@@ -7,15 +7,16 @@ export default authMiddleware({
   // Routes that can always be accessed, and have
   // no authentication information
   ignoredRoutes: ["/no-auth-in-this-route"],
-  async beforeAuth(auth, req) { },
+  async beforeAuth(auth, req) {},
   async afterAuth(auth, req) {
     // rewrite for domains
     const url = req.nextUrl;
     const searchParams = url.searchParams.toString();
     let hostname = req.headers;
 
-    const pathWithSearchParams = `${url.pathname}${searchParams.length > 0 ? `?${searchParams}` : ""
-      }`;
+    const pathWithSearchParams = `${url.pathname}${
+      searchParams.length > 0 ? `?${searchParams}` : ""
+    }`;
 
     // if subdomain exists
     const customSubDomain = hostname
@@ -29,7 +30,7 @@ export default authMiddleware({
       );
     }
 
-    if (url.pathname === "sign-in" || url.pathname === "sign-up") {
+    if (url.pathname === "/sign-in" || url.pathname === "/sign-up") {
       return NextResponse.redirect(new URL("/agency/sign-in", req.url));
     }
 
