@@ -88,7 +88,7 @@ const MenuOptions = ({
         showX={!defaultOpen}
         side="left"
         className={clsx(
-          "bg-background/80 backdrop-blur-lg fixed top-0 border-r-[1px] p-6",
+          "bg-background/80 backdrop-blur-xl fixed top-0 border-r-[1px] p-6",
           {
             "hidden md:inline-block z-0 w-[300px]": defaultOpen,
             "inline-block md:hidden z-[100] w-full": !defaultOpen,
@@ -111,7 +111,7 @@ const MenuOptions = ({
                 variant="ghost"
               >
                 <div className="flex items-center text-left gap-2">
-                  <Compass className="" />
+                  <Compass />
                   <div className="flex flex-col">
                     {details.name}
                     <span className="text-muted-foreground">
@@ -155,7 +155,7 @@ const MenuOptions = ({
                               </div>
                             </Link>
                           ) : (
-                            <SheetClose>
+                            <SheetClose asChild>
                               <Link
                                 href={`/agency/${user?.Agency?.id}`}
                                 className="flex gap-4 w-full h-full"
@@ -205,7 +205,7 @@ const MenuOptions = ({
                                 </div>
                               </Link>
                             ) : (
-                              <SheetClose>
+                              <SheetClose asChild>
                                 <Link
                                   href={`/agency/${subaccount.id}`}
                                   className="flex gap-4 w-full h-full"
@@ -260,6 +260,43 @@ const MenuOptions = ({
               </Command>
             </PopoverContent>
           </Popover>
+          <p className="text-muted-foreground text-xs mb-2">MENU LINKS</p>
+          <Separator className="mb-4" />
+          <nav className="relative">
+            <Command className="rounded-lg overflow-visible bg-transparent">
+              <CommandInput placeholder="Search..." />
+              <CommandList className="py-4 overflow-visible">
+                <CommandEmpty>No Results found</CommandEmpty>
+                <CommandGroup className="overflow-visible">
+                  {sidebarOpt.map((sidebar) => {
+                    let val;
+                    const result = icons.find(
+                      (icon) => icon.value === sidebar.icon
+                    );
+
+                    if (result) {
+                      val = <result.path />;
+                    }
+
+                    return (
+                      <CommandItem
+                        key={sidebar.id}
+                        className="md:w-[320px] w-full"
+                      >
+                        <Link
+                          href={sidebar.link}
+                          className="flex items-center gap-2 hover:bg-transparent rounded-md transition-all md:w-full w-[320px]"
+                        >
+                          {val}
+                          <span>{sidebar.name}</span>
+                        </Link>
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </nav>
         </div>
       </SheetContent>
     </Sheet>
