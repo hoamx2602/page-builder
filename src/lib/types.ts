@@ -18,6 +18,7 @@ import {
 } from "./queries";
 import { db } from "./db";
 import { z } from "zod";
+import Stripe from "stripe";
 
 export type NotificationWithUser =
   | ({
@@ -133,3 +134,5 @@ export type StripeCustomerType = {
   shipping: ShippingInfo;
   address: Address;
 };
+
+export type PricesList = Stripe.ApiList<Stripe.Price>;

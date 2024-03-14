@@ -205,3 +205,7 @@ export const icons = [
     path: ClipboardIcon,
   },
 ];
+
+export const addOnProducts = [
+  { title: "Priority Support", id: "prod_PjbQxljeHIVXPx" },
+];
